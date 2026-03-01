@@ -1,0 +1,627 @@
+
+# Create cars.html - Browse Cars Page
+cars_html = '''<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>تصفح السيارات - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .nav-link-active { position: relative; color: #f47b25; }
+        .nav-link-active::after {
+            content: ''; position: absolute; bottom: -18px; left: 0; right: 0;
+            height: 3px; background-color: #f47b25; border-radius: 3px 3px 0 0;
+        }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        .image-zoom { transition: transform 0.5s ease; }
+        .group:hover .image-zoom { transform: scale(1.1); }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .filter-sidebar {
+            transition: transform 0.3s ease;
+        }
+        .range-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: #e2e8f0;
+            outline: none;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f47b25;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden xl:flex items-center gap-1 h-full">
+                    <a href="index.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">home</span>الرئيسية
+                    </a>
+                    <a href="cars.html" class="nav-link-active px-4 py-2 text-sm font-bold h-full flex items-center gap-2 rounded-lg">
+                        <span class="material-symbols-outlined text-lg">search</span>تصفح السيارات
+                    </a>
+                    <a href="add-listing.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">add_box</span>إضافة إعلان
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">contact_support</span>تواصل معنا
+                    </a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-4">
+                    <a href="add-listing.html" class="hidden md:flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add_circle</span>أضف إعلانك
+                    </a>
+                    
+                    <!-- User Menu -->
+                    <div class="relative" id="userMenu">
+                        <button onclick="toggleUserMenu()" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer flex items-center justify-center bg-primary text-white hover:shadow-lg transition-all">
+                            <span class="material-symbols-outlined">person</span>
+                        </button>
+                        <!-- Dropdown -->
+                        <div id="userDropdown" class="hidden absolute left-0 top-full mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-2 z-50">
+                            <a href="login.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">login</span>تسجيل الدخول
+                            </a>
+                            <a href="register.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">person_add</span>إنشاء حساب
+                            </a>
+                            <hr class="my-2 border-slate-200 dark:border-slate-700">
+                            <a href="profile.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">dashboard</span>لوحة التحكم
+                            </a>
+                            <a href="my-ads.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">inventory_2</span>إعلاناتي
+                            </a>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button onclick="toggleMobileMenu()" class="xl:hidden w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden xl:hidden fixed inset-0 z-40 bg-black/50" onclick="toggleMobileMenu()">
+        <div class="absolute left-0 top-0 h-full w-80 bg-white dark:bg-slate-800 shadow-xl p-6" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-8">
+                <h2 class="text-xl font-black text-navy-custom dark:text-white">القائمة</h2>
+                <button onclick="toggleMobileMenu()" class="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <nav class="space-y-2">
+                <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 font-bold">
+                    <span class="material-symbols-outlined">home</span>الرئيسية
+                </a>
+                <a href="cars.html" class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/10 text-primary font-bold">
+                    <span class="material-symbols-outlined">search</span>تصفح السيارات
+                </a>
+                <a href="add-listing.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 font-bold">
+                    <span class="material-symbols-outlined">add_box</span>إضافة إعلان
+                </a>
+                <a href="contact.html" class="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-700 font-bold">
+                    <span class="material-symbols-outlined">contact_support</span>تواصل معنا
+                </a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Page Header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h1 class="text-3xl font-black text-navy-custom dark:text-white mb-2">تصفح السيارات</h1>
+                    <p class="text-slate-500 dark:text-slate-400">اكتشف أفضل العروض المتاحة للبيع</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleFilters()" class="lg:hidden flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-bold">
+                        <span class="material-symbols-outlined">filter_list</span>فلترة
+                    </button>
+                    <select id="sortSelect" onchange="sortCars()" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-2 px-4 focus:outline-none focus:border-primary">
+                        <option value="newest">الأحدث أولاً</option>
+                        <option value="price_asc">السعر: من الأقل للأعلى</option>
+                        <option value="price_desc">السعر: من الأعلى للأقل</option>
+                        <option value="year_desc">السنة: الأحدث</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex gap-8">
+                <!-- Filters Sidebar -->
+                <aside id="filtersSidebar" class="hidden lg:block w-80 shrink-0">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-6 sticky top-24">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="font-bold text-lg text-navy-custom dark:text-white">فلترة النتائج</h3>
+                            <button onclick="resetFilters()" class="text-sm text-primary hover:underline">إعادة ضبط</button>
+                        </div>
+
+                        <!-- Brand Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">الماركة</h4>
+                            <div class="space-y-2 max-h-48 overflow-y-auto" id="brandFilters">
+                                <!-- Generated by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">نطاق السعر</h4>
+                            <div class="space-y-3">
+                                <input type="range" min="0" max="50000000" value="50000000" class="range-slider" id="priceRange" oninput="updatePriceLabel()">
+                                <div class="flex justify-between text-sm text-slate-500">
+                                    <span>0</span>
+                                    <span id="priceLabel">50 مليون</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">سنة الصنع</h4>
+                            <div class="grid grid-cols-2 gap-2">
+                                <select id="yearFrom" class="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg py-2 px-3 text-sm">
+                                    <option value="">من</option>
+                                </select>
+                                <select id="yearTo" class="bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg py-2 px-3 text-sm">
+                                    <option value="">إلى</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- State Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">الولاية</h4>
+                            <select id="stateFilter" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg py-2 px-3 text-sm">
+                                <option value="">كل الولايات</option>
+                            </select>
+                        </div>
+
+                        <!-- Fuel Type -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">نوع الوقود</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="gasoline" class="fuel-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                                    <span class="text-sm">بنزين</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="diesel" class="fuel-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                                    <span class="text-sm">ديزل</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="hybrid" class="fuel-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                                    <span class="text-sm">هجين</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Transmission -->
+                        <div class="mb-6">
+                            <h4 class="font-bold text-sm text-slate-700 dark:text-slate-300 mb-3">ناقل الحركة</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="automatic" class="trans-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                                    <span class="text-sm">أوتوماتيك</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" value="manual" class="trans-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                                    <span class="text-sm">عادي</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button onclick="applyFilters()" class="w-full btn-primary text-white font-bold py-3 rounded-xl">
+                            تطبيق الفلترة
+                        </button>
+                    </div>
+                </aside>
+
+                <!-- Cars Grid -->
+                <div class="flex-1">
+                    <!-- Results Count -->
+                    <div class="flex items-center justify-between mb-6">
+                        <p class="text-slate-500 dark:text-slate-400">
+                            تم العثور على <span id="resultsCount" class="font-bold text-navy-custom dark:text-white">0</span> سيارة
+                        </p>
+                        <!-- Active Filters -->
+                        <div id="activeFilters" class="flex flex-wrap gap-2">
+                            <!-- Generated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Cars Grid -->
+                    <div id="carsGrid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- Cars loaded dynamically -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="mt-12 flex justify-center" id="pagination">
+                        <!-- Generated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-custom text-slate-300 pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 text-white">
+                    <span class="material-symbols-outlined text-4xl text-primary">directions_car</span>
+                    <h2 class="text-2xl font-black">SudanCars</h2>
+                </div>
+                <p class="text-sm leading-relaxed">منصتكم الموثوقة لبيع وشراء السيارات في جميع أنحاء السودان.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">روابط سريعة</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html" class="hover:text-primary transition-colors">سيارات للبيع</a></li>
+                    <li><a href="add-listing.html" class="hover:text-primary transition-colors">إضافة إعلان</a></li>
+                    <li><a href="contact.html" class="hover:text-primary transition-colors">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">الدعم</h4>
+                <ul class="space-y-4">
+                    <li><a href="faq.html" class="hover:text-primary transition-colors">الأسئلة الشائعة</a></li>
+                    <li><a href="terms.html" class="hover:text-primary transition-colors">شروط الاستخدام</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary transition-colors">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">تواصل معنا</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">mail</span>osamaabd364@gmail.com</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">call</span>+249 125 798 205</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-700">
+            <p class="text-center text-xs text-slate-500">© 2026 SudanCars. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+        const carBrands = ["تويوتا", "هيونداي", "كيا", "مرسيدس", "نيسان", "شيفروليه", "هوندا", "ميتسوبيشي", "بي إم دبليو", "فورد"];
+        
+        const allCars = [
+            {id: 1, title: "تويوتا لاندكروزر V8", brand: "تويوتا", model: "لاندكروزر", price: 12500000, year: 2022, mileage: 15000, location: "الخرطوم", state: "الخرطوم", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600", date: "2026-03-01"},
+            {id: 2, title: "هيونداي توسان", brand: "هيونداي", model: "توسان", price: 4200000, year: 2018, mileage: 45000, location: "الجزيرة", state: "الجزيرة", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600", date: "2026-02-28"},
+            {id: 3, title: "مرسيدس E300", brand: "مرسيدس", model: "E300", price: 18000000, year: 2021, mileage: 20000, location: "الخرطوم بحري", state: "الخرطوم", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600", date: "2026-02-28"},
+            {id: 4, title: "كيا سبورتاج", brand: "كيا", model: "سبورتاج", price: 6800000, year: 2020, mileage: 30000, location: "بورتسودان", state: "البحر الأحمر", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600", date: "2026-02-27"},
+            {id: 5, title: "نيسان باترول", brand: "نيسان", model: "باترول", price: 15000000, year: 2020, mileage: 25000, location: "الخرطوم", state: "الخرطوم", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=600", date: "2026-02-27"},
+            {id: 6, title: "تويوتا كامري", brand: "تويوتا", model: "كامري", price: 7500000, year: 2019, mileage: 35000, location: "مدني", state: "الجزيرة", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=600", date: "2026-02-26"},
+            {id: 7, title: "هيونداي إلنترا", brand: "هيونداي", model: "إلنترا", price: 3800000, year: 2017, mileage: 55000, location: "عطبرة", state: "نهر النيل", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600", date: "2026-02-26"},
+            {id: 8, title: "شيفروليه تاهو", brand: "شيفروليه", model: "تاهو", price: 22000000, year: 2021, mileage: 18000, location: "الخرطوم", state: "الخرطوم", fuel: "gasoline", transmission: "automatic", image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600", date: "2026-02-25"},
+            {id: 9, title: "تويوتا هايلوكس", brand: "تويوتا", model: "هايلوكس", price: 8500000, year: 2020, mileage: 40000, location: "القضارف", state: "القضارف", fuel: "diesel", transmission: "manual", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600", date: "2026-02-25"},
+        ];
+
+        let filteredCars = [...allCars];
+        let currentPage = 1;
+        const carsPerPage = 6;
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            populateFilters();
+            renderCars();
+            updateResultsCount();
+        });
+
+        function populateFilters() {
+            // Brand filters
+            const brandContainer = document.getElementById('brandFilters');
+            carBrands.forEach(brand => {
+                const count = allCars.filter(c => c.brand === brand).length;
+                brandContainer.innerHTML += `
+                    <label class="flex items-center justify-between cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 p-2 rounded-lg">
+                        <div class="flex items-center gap-2">
+                            <input type="checkbox" value="${brand}" class="brand-filter w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary">
+                            <span class="text-sm">${brand}</span>
+                        </div>
+                        <span class="text-xs text-slate-400">${count}</span>
+                    </label>
+                `;
+            });
+
+            // Year selects
+            const yearFrom = document.getElementById('yearFrom');
+            const yearTo = document.getElementById('yearTo');
+            for (let year = 2026; year >= 1990; year--) {
+                yearFrom.innerHTML += `<option value="${year}">${year}</option>`;
+                yearTo.innerHTML += `<option value="${year}">${year}</option>`;
+            }
+
+            // State filter
+            const states = [...new Set(allCars.map(c => c.state))];
+            const stateSelect = document.getElementById('stateFilter');
+            states.forEach(state => {
+                stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+            });
+        }
+
+        function renderCars() {
+            const grid = document.getElementById('carsGrid');
+            grid.innerHTML = '';
+
+            const start = (currentPage - 1) * carsPerPage;
+            const end = start + carsPerPage;
+            const carsToShow = filteredCars.slice(start, end);
+
+            carsToShow.forEach(car => {
+                grid.innerHTML += `
+                    <div class="card-hover bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700 group">
+                        <div class="relative h-56 overflow-hidden">
+                            <div class="absolute top-3 right-3 bg-primary text-white px-3 py-1 rounded-full text-xs font-bold z-10">${car.year}</div>
+                            <div class="absolute bottom-3 left-3 bg-navy-custom/90 text-white px-3 py-1 rounded-lg font-black text-lg z-10">${car.price.toLocaleString()} ج.س</div>
+                            <img alt="${car.title}" class="w-full h-full object-cover image-zoom" src="${car.image}"/>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="text-xl font-bold text-navy-custom dark:text-white mb-2">${car.title}</h4>
+                            <div class="flex flex-wrap gap-3 mb-4 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">location_on</span>${car.location}</div>
+                                <div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">speed</span>${car.mileage.toLocaleString()} كم</div>
+                                <div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">local_gas_station</span>${getFuelLabel(car.fuel)}</div>
+                            </div>
+                            <a href="car-details.html?id=${car.id}" class="block w-full py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary font-bold rounded-lg transition-all text-center">تفاصيل الإعلان</a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            renderPagination();
+        }
+
+        function getFuelLabel(fuel) {
+            const labels = {gasoline: 'بنزين', diesel: 'ديزل', hybrid: 'هجين', electric: 'كهربائي'};
+            return labels[fuel] || fuel;
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+            const container = document.getElementById('pagination');
+            
+            if (totalPages <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            let html = '<div class="flex items-center gap-2">';
+            
+            // Prev button
+            html += `<button onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''} class="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"><span class="material-symbols-outlined">chevron_right</span></button>`;
+            
+            // Page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += `<button class="w-10 h-10 rounded-lg bg-primary text-white font-bold">${i}</button>`;
+                } else {
+                    html += `<button onclick="changePage(${i})" class="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700">${i}</button>`;
+                }
+            }
+            
+            // Next button
+            html += `<button onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''} class="w-10 h-10 rounded-lg border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed"><span class="material-symbols-outlined">chevron_left</span></button>`;
+            
+            html += '</div>';
+            container.innerHTML = html;
+        }
+
+        function changePage(page) {
+            const totalPages = Math.ceil(filteredCars.length / carsPerPage);
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderCars();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function updatePriceLabel() {
+            const value = document.getElementById('priceRange').value;
+            document.getElementById('priceLabel').textContent = (value / 1000000) + ' مليون';
+        }
+
+        function applyFilters() {
+            const selectedBrands = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
+            const maxPrice = parseInt(document.getElementById('priceRange').value);
+            const yearFrom = document.getElementById('yearFrom').value;
+            const yearTo = document.getElementById('yearTo').value;
+            const state = document.getElementById('stateFilter').value;
+            const selectedFuels = Array.from(document.querySelectorAll('.fuel-filter:checked')).map(cb => cb.value);
+            const selectedTrans = Array.from(document.querySelectorAll('.trans-filter:checked')).map(cb => cb.value);
+
+            filteredCars = allCars.filter(car => {
+                if (selectedBrands.length && !selectedBrands.includes(car.brand)) return false;
+                if (car.price > maxPrice) return false;
+                if (yearFrom && car.year < parseInt(yearFrom)) return false;
+                if (yearTo && car.year > parseInt(yearTo)) return false;
+                if (state && car.state !== state) return false;
+                if (selectedFuels.length && !selectedFuels.includes(car.fuel)) return false;
+                if (selectedTrans.length && !selectedTrans.includes(car.transmission)) return false;
+                return true;
+            });
+
+            currentPage = 1;
+            renderCars();
+            updateResultsCount();
+            updateActiveFilters();
+            
+            // Close mobile filters
+            if (window.innerWidth < 1024) {
+                toggleFilters();
+            }
+        }
+
+        function resetFilters() {
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            document.getElementById('priceRange').value = 50000000;
+            document.getElementById('yearFrom').value = '';
+            document.getElementById('yearTo').value = '';
+            document.getElementById('stateFilter').value = '';
+            updatePriceLabel();
+            filteredCars = [...allCars];
+            currentPage = 1;
+            renderCars();
+            updateResultsCount();
+            updateActiveFilters();
+        }
+
+        function updateResultsCount() {
+            document.getElementById('resultsCount').textContent = filteredCars.length;
+        }
+
+        function updateActiveFilters() {
+            const container = document.getElementById('activeFilters');
+            const activeFilters = [];
+            
+            document.querySelectorAll('.brand-filter:checked').forEach(cb => activeFilters.push(cb.value));
+            document.querySelectorAll('.fuel-filter:checked').forEach(cb => activeFilters.push(getFuelLabel(cb.value)));
+            document.querySelectorAll('.trans-filter:checked').forEach(cb => activeFilters.push(cb.value === 'automatic' ? 'أوتوماتيك' : 'عادي'));
+            
+            if (activeFilters.length === 0) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = activeFilters.map(filter => `
+                <span class="inline-flex items-center gap-1 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">
+                    ${filter}
+                    <button onclick="removeFilter('${filter}')" class="hover:text-red-500"><span class="material-symbols-outlined text-sm">close</span></button>
+                </span>
+            `).join('');
+        }
+
+        function sortCars() {
+            const sortValue = document.getElementById('sortSelect').value;
+            
+            switch(sortValue) {
+                case 'price_asc':
+                    filteredCars.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price_desc':
+                    filteredCars.sort((a, b) => b.price - a.price);
+                    break;
+                case 'year_desc':
+                    filteredCars.sort((a, b) => b.year - a.year);
+                    break;
+                case 'newest':
+                default:
+                    filteredCars.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            
+            currentPage = 1;
+            renderCars();
+        }
+
+        function toggleFilters() {
+            const sidebar = document.getElementById('filtersSidebar');
+            sidebar.classList.toggle('hidden');
+            sidebar.classList.toggle('fixed');
+            sidebar.classList.toggle('inset-0');
+            sidebar.classList.toggle('z-50');
+            sidebar.classList.toggle('bg-black/50');
+            
+            if (!sidebar.classList.contains('hidden')) {
+                sidebar.innerHTML = '<div class="absolute left-0 top-0 h-full w-80 bg-white dark:bg-slate-800 overflow-y-auto p-6">' + sidebar.innerHTML + '</div>';
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleUserMenu() {
+            document.getElementById('userDropdown').classList.toggle('hidden');
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobileMenu').classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('userMenu');
+            if (menu && !menu.contains(event.target)) {
+                document.getElementById('userDropdown').classList.add('hidden');
+            }
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>'''

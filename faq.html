@@ -1,0 +1,375 @@
+
+# Create faq.html - FAQ Page
+faq_html = '''<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>الأسئلة الشائعة - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .faq-item {
+            transition: all 0.3s ease;
+        }
+        .faq-item.active {
+            border-color: #f47b25;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 1rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+        .category-btn.active {
+            background-color: #f47b25;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+
+                <nav class="hidden xl:flex items-center gap-1 h-full">
+                    <a href="index.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">home</span>الرئيسية
+                    </a>
+                    <a href="cars.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">search</span>تصفح السيارات
+                    </a>
+                    <a href="add-listing.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">add_box</span>إضافة إعلان
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">contact_support</span>تواصل معنا
+                    </a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <a href="add-listing.html" class="hidden md:flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add_circle</span>أضف إعلانك
+                    </a>
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Page Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-black text-navy-custom dark:text-white mb-4">الأسئلة الشائعة</h1>
+                <p class="text-slate-500 dark:text-slate-400">إليك إجابات على الأسئلة الأكثر شيوعاً</p>
+            </div>
+
+            <!-- Search -->
+            <div class="relative mb-8">
+                <input type="text" id="searchInput" placeholder="ابحث في الأسئلة..." onkeyup="searchFaqs()" 
+                    class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl py-4 pr-12 pl-4 text-right focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all">
+                <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+            </div>
+
+            <!-- Categories -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterCategory('all')" class="category-btn active px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">الكل</button>
+                <button onclick="filterCategory('general')" class="category-btn px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">عام</button>
+                <button onclick="filterCategory('ads')" class="category-btn px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">الإعلانات</button>
+                <button onclick="filterCategory('payment')" class="category-btn px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">الدفع</button>
+                <button onclick="filterCategory('account')" class="category-btn px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">الحساب</button>
+                <button onclick="filterCategory('safety')" class="category-btn px-4 py-2 rounded-lg font-bold text-sm bg-slate-100 dark:bg-slate-700 hover:bg-primary hover:text-white transition-all">الأمان</button>
+            </div>
+
+            <!-- FAQ List -->
+            <div id="faqList" class="space-y-4">
+                <!-- General -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="general">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">ما هو SudanCars؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">SudanCars هي منصة إلكترونية رائدة لبيع وشراء السيارات في السودان. نقدم خدمة آمنة وموثوقة تربط بين البائعين والمشترين في جميع ولايات السودان.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="general">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">هل استخدام المنصة مجاني؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">التصفح والبحث عن السيارات مجاني تماماً. أما إضافة الإعلانات فتتطلب رسوم رمزية قدرها 5,000 جنيه سوداني لكل إعلان لمدة 30 يوماً.</p>
+                    </div>
+                </div>
+
+                <!-- Ads -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="ads">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">كيف أضيف إعلان للبيع؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">اضغط على زر "أضف إعلانك" في أعلى الصفحة، ثم اتبع الخطوات التالية:<br>1. أدخل بيانات السيارة (الماركة، الموديل، السنة، السعر...)<br>2. أرفق صور واضحة للسيارة<br>3. أكمل عملية الدفع<br>4. انتظر موافقة الإعلان (24-48 ساعة)</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="ads">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">كم تستغرق موافقة الإعلان؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">يتم مراجعة الإعلانات خلال 24 ساعة من إتمام الدفع. في أيام العطل والإجازات الرسمية قد تستغرق حتى 48 ساعة. سيتم إشعارك فور الموافقة على إعلانك.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="ads">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">ما هي مدة صلاحية الإعلان؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">تستمر الإعلانات لمدة 30 يوماً من تاريخ الموافقة عليها. يمكنك تجديد الإعلان قبل انتهائه أو بعد انتهائه مقابل رسوم رمزية (5,000 جنيه).</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="ads">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">هل يمكنني تعديل إعلاني بعد نشره؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">نعم، يمكنك تعديل إعلانك من خلال لوحة التحكم > إعلاناتي > تعديل. بعض التعديلات الجوهرية (مثل تغيير السعر بشكل كبير) قد تتطلب مراجعة جديدة.</p>
+                    </div>
+                </div>
+
+                <!-- Payment -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="payment">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">ما هي طرق الدفع المتاحة؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">ندعم الدفع عبر:<br>• بنكك (Bankak) - تحويل مباشر<br>• فوري (Fawry) - دفع في أي منفذ فوري<br>• بنكك - عبر تطبيق الهاتف</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="payment">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">كيف أتأكد من وصول الدفع؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">بعد إتمام التحويل، قم بإرفاق صورة من إيصال الدفع في صفحة إضافة الإعلان. سيتم التحقق من الدفع خلال ساعات قليلة وإشعارك بالموافقة.</p>
+                    </div>
+                </div>
+
+                <!-- Account -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="account">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">كيف أنشئ حساب جديد؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">اضغط على أيقونة المستخدم في أعلى الصفحة، ثم اختر "إنشاء حساب". أدخل بياناتك (الاسم، رقم الهاتف، البريد الإلكتروني، كلمة المرور) وقم بتأكيد رقم الهاتف.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="account">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">نسيت كلمة المرور، ماذا أفعل؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">اضغط على "نسيت كلمة المرور" في صفحة تسجيل الدخول. أدخل رقم هاتفك وسيتم إرسال رمز التحقق لإعادة تعيين كلمة المرور.</p>
+                    </div>
+                </div>
+
+                <!-- Safety -->
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="safety">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">كيف أضمن أمان التعامل؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">ننصح باتباع النصائح التالية:<br>• قابل البائع في مكان عام وآمن<br>• افحص السيارة جيداً قبل الشراء<br>• تأكد من أوراق السيارة الرسمية<br>• لا ترسل أموال مسبقاً قبل المعاينة<br>• استخدم خاصية التواصل عبر المنصة</p>
+                    </div>
+                </div>
+
+                <div class="faq-item bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden" data-category="safety">
+                    <button onclick="toggleFaq(this)" class="w-full flex items-center justify-between p-6 text-right hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                        <span class="font-bold text-navy-custom dark:text-white">ماذا أفعل إذا واجهت مشكلة؟</span>
+                        <span class="material-symbols-outlined text-slate-400 faq-icon transition-transform duration-300">expand_more</span>
+                    </button>
+                    <div class="faq-answer px-6 pb-6">
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">يمكنك التواصل معنا عبر:<br>• الواتساب: +249 125 798 205<br>• البريد: osamaabd364@gmail.com<br>• صفحة "تواصل معنا"<br>فريق الدعم متواجد 24/7 لمساعدتك.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Still Have Questions -->
+            <div class="mt-12 bg-navy-custom rounded-2xl p-8 text-center text-white">
+                <h3 class="text-2xl font-bold mb-4">لم تجد إجابة لسؤالك؟</h3>
+                <p class="text-slate-300 mb-6">فريق الدعم جاهز لمساعدتك في أي وقت</p>
+                <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-navy-custom font-bold py-3 px-8 rounded-xl hover:bg-slate-100 transition-all">
+                    <span class="material-symbols-outlined">chat</span>تواصل معنا
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-custom text-slate-300 pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 text-white">
+                    <span class="material-symbols-outlined text-4xl text-primary">directions_car</span>
+                    <h2 class="text-2xl font-black">SudanCars</h2>
+                </div>
+                <p class="text-sm leading-relaxed">منصتكم الموثوقة لبيع وشراء السيارات في جميع أنحاء السودان.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">روابط سريعة</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html" class="hover:text-primary transition-colors">سيارات للبيع</a></li>
+                    <li><a href="add-listing.html" class="hover:text-primary transition-colors">إضافة إعلان</a></li>
+                    <li><a href="contact.html" class="hover:text-primary transition-colors">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">الدعم</h4>
+                <ul class="space-y-4">
+                    <li><a href="faq.html" class="hover:text-primary transition-colors">الأسئلة الشائعة</a></li>
+                    <li><a href="terms.html" class="hover:text-primary transition-colors">شروط الاستخدام</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary transition-colors">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">تواصل معنا</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">mail</span>osamaabd364@gmail.com</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">call</span>+249 125 798 205</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-700">
+            <p class="text-center text-xs text-slate-500">© 2026 SudanCars. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close all
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            
+            // Open clicked if wasn't active
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function filterCategory(category) {
+            // Update buttons
+            document.querySelectorAll('.category-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter items
+            const items = document.querySelectorAll('.faq-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function searchFaqs() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.faq-item');
+            
+            items.forEach(item => {
+                const question = item.querySelector('button span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(query) || answer.includes(query)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>'''

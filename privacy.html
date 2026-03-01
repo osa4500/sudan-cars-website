@@ -1,0 +1,308 @@
+
+# Create privacy.html - Privacy Policy Page
+privacy_html = '''<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>سياسة الخصوصية - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .privacy-content h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1a2b3c;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .dark .privacy-content h2 {
+            color: white;
+        }
+        .privacy-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #334155;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .dark .privacy-content h3 {
+            color: #cbd5e1;
+        }
+        .privacy-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .privacy-content ul {
+            list-style-type: disc;
+            padding-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .privacy-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+
+                <nav class="hidden xl:flex items-center gap-1 h-full">
+                    <a href="index.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">home</span>الرئيسية
+                    </a>
+                    <a href="cars.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">search</span>تصفح السيارات
+                    </a>
+                    <a href="add-listing.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">add_box</span>إضافة إعلان
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">contact_support</span>تواصل معنا
+                    </a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <a href="add-listing.html" class="hidden md:flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add_circle</span>أضف إعلانك
+                    </a>
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Page Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-black text-navy-custom dark:text-white mb-4">سياسة الخصوصية</h1>
+                <p class="text-slate-500 dark:text-slate-400">آخر تحديث: 1 مارس 2026</p>
+            </div>
+
+            <!-- Privacy Content -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-8 md:p-12 privacy-content">
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                        في SudanCars، نأخذ خصوصيتك على محمل الجد. هذه السياسة توضح كيفية جمعنا واستخدامنا وحمايتنا لمعلوماتك الشخصية عند استخدامك لمنصتنا.
+                    </p>
+
+                    <h2>1. المعلومات التي نجمعها</h2>
+                    <h3>1.1 المعلومات الشخصية</h3>
+                    <p>عند التسجيل واستخدام المنصة، قد نجمع المعلومات التالية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>الاسم الكامل</li>
+                        <li>رقم الهاتف</li>
+                        <li>عنوان البريد الإلكتروني</li>
+                        <li>الموقع الجغرافي (الولاية/المدينة)</li>
+                        <li>صورة الملف الشخصي (اختياري)</li>
+                    </ul>
+
+                    <h3>1.2 معلومات الإعلانات</h3>
+                    <p>عند نشر إعلان، نجمع:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>تفاصيل السيارة (الماركة، الموديل، السنة...)</li>
+                        <li>السعر</li>
+                        <li>الصور</li>
+                        <li>الموقع</li>
+                        <li>وصف السيارة</li>
+                    </ul>
+
+                    <h3>1.3 معلومات الاستخدام</h3>
+                    <p>نقوم تلقائياً بجمع:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>عنوان IP</li>
+                        <li>نوع المتصفح ونظام التشغيل</li>
+                        <li>الصفحات التي تزورها</li>
+                        <li>وقت وتاريخ الزيارة</li>
+                        <li>الإجراءات التي تقوم بها على المنصة</li>
+                    </ul>
+
+                    <h2>2. كيف نستخدم معلوماتك</h2>
+                    <p>نستخدم معلوماتك للأغراض التالية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>إنشاء وإدارة حسابك</li>
+                        <li>نشر وإدارة إعلاناتك</li>
+                        <li>التواصل معك بخصوص حسابك أو إعلاناتك</li>
+                        <li>تحسين خدماتنا وتجربة المستخدم</li>
+                        <li>ضمان الأمان ومنع الاحتيال</li>
+                        <li>الامتثال للالتزامات القانونية</li>
+                    </ul>
+
+                    <h2>3. مشاركة المعلومات</h2>
+                    <p>لا نبيع أو نؤجر معلوماتك الشخصية لأطراف ثالثة. ق نشارك معلوماتك فقط في الحالات التالية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li><strong>مع المستخدمين الآخرين:</strong> عند نشر إعلان، يمكن للمستخدمين الآخرين رؤية معلومات الاتصال التي تختار مشاركتها.</li>
+                        <li><strong>مزودي الخدمات:</strong> قد نشارك معلومات مع مزودي خدمات موثوقين يساعدوننا في تشغيل المنصة (مثل خدمات الاستضافة).</li>
+                        <li><strong>الامتثال القانوني:</strong> قد نكشف عن معلومات إذا كان ذلك مطلوباً بموجب القانون أو أمر محكمة.</li>
+                        <li><strong>حماية الحقوق:</strong> لحماية حقوقنا أو ممتلكاتنا أو سلامة مستخدمينا.</li>
+                    </ul>
+
+                    <h2>4. حماية المعلومات</h2>
+                    <p>نتخذ إجراءات أمنية مناسبة لحماية معلوماتك:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>تشفير البيانات الحساسة</li>
+                        <li>استخدام جدران الحماية وأنظمة الحماية</li>
+                        <li>التحقق من الهوية قبل الوصول للحسابات</li>
+                        <li>تحديثات أمنية منتظمة للأنظمة</li>
+                        <li>تدريب الموظفين على سياسات الخصوصية</li>
+                    </ul>
+
+                    <h2>5. حقوقك</h2>
+                    <p>لديك الحقوق التالية فيما يتعلق بمعلوماتك:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li><strong>الوصول:</strong> طلب نسخة من المعلومات التي نحتفظ بها عنك.</li>
+                        <li><strong>التصحيح:</strong> تحديث أو تصحيح معلوماتك غير الدقيقة.</li>
+                        <li><strong>الحذف:</strong> طلب حذف حسابك ومعلوماتك (مع مراعاة الالتزامات القانونية).</li>
+                        <li><strong>الاعتراض:</strong> الاعتراض على معالجة معلوماتك لأغراض معينة.</li>
+                        <li><strong>قابلية النقل:</strong> طلب نقل معلوماتك إلى خدمة أخرى.</li>
+                    </ul>
+
+                    <h2>6. ملفات تعريف الارتباط (Cookies)</h2>
+                    <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li><strong>ملفات ضرورية:</strong> للتشغيل الأساسي للموقع.</li>
+                        <li><strong>ملفات التفضيلات:</strong> لتذكر إعداداتك (مثل الوضع المظلم).</li>
+                        <li><strong>ملفات التحليلات:</strong> لفهم كيفية استخدام المستخدمين للموقع.</li>
+                    </ul>
+                    <p>يمكنك ضبط إعدادات المتصفح لرفض ملفات تعريف الارتباط، لكن قد يؤثر ذلك على وظائف الموقع.</p>
+
+                    <h2>7. الاحتفاظ بالبيانات</h2>
+                    <p>نحتفظ بمعلوماتك طالما كان حسابك نشطاً أو حسب الحاجة لتقديم خدماتنا. بعد إغلاق حسابك:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>نحذف معلوماتك الشخصية خلال 30 يوماً.</li>
+                        <li>قد نحتفظ ببعض المعلومات للامتثال القانوني أو لأغراض الأمان.</li>
+                        <li>نحتفظ بالإعلانات المنشورة لمدة محدودة للأرشفة.</li>
+                    </ul>
+
+                    <h2>8. الأطفال</h2>
+                    <p>منصتنا غير موجهة للأشخاص دون 18 عاماً. لا نجمع قصداً معلومات من الأطفال. إذا اكتشفنا أننا جمعنا معلومات من طفل، سنقوم بحذفها فوراً.</p>
+
+                    <h2>9. التغييرات على سياسة الخصوصية</h2>
+                    <p>قد نقوم بتحديث هذه السياسة من وقت لآخر. سيتم إشعارك بالتغييرات الجوهرية عبر:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>إشعار على المنصة</li>
+                        <li>البريد الإلكتروني</li>
+                        <li>تحديث تاريخ "آخر تحديث" في أعلى الصفحة</li>
+                    </ul>
+
+                    <h2>10. التواصل معنا</h2>
+                    <p>إذا كان لديك أي استفسارات أو طلبات بخصوص خصوصيتك، يمكنك التواصل معنا:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>البريد الإلكتروني: osamaabd364@gmail.com</li>
+                        <li>الهاتف: +249 125 798 205</li>
+                        <li>العنوان: الخرطوم، السودان</li>
+                    </ul>
+
+                    <div class="mt-12 p-6 bg-slate-50 dark:bg-slate-700 rounded-xl">
+                        <p class="text-sm text-slate-600 dark:text-slate-300 text-center">
+                            باستخدامك لمنصة SudanCars، فإنك توافق على جمع واستخدام معلوماتك كما هو موضح في هذه السياسة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-custom text-slate-300 pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 text-white">
+                    <span class="material-symbols-outlined text-4xl text-primary">directions_car</span>
+                    <h2 class="text-2xl font-black">SudanCars</h2>
+                </div>
+                <p class="text-sm leading-relaxed">منصتكم الموثوقة لبيع وشراء السيارات في جميع أنحاء السودان.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">روابط سريعة</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html" class="hover:text-primary transition-colors">سيارات للبيع</a></li>
+                    <li><a href="add-listing.html" class="hover:text-primary transition-colors">إضافة إعلان</a></li>
+                    <li><a href="contact.html" class="hover:text-primary transition-colors">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">الدعم</h4>
+                <ul class="space-y-4">
+                    <li><a href="faq.html" class="hover:text-primary transition-colors">الأسئلة الشائعة</a></li>
+                    <li><a href="terms.html" class="hover:text-primary transition-colors">شروط الاستخدام</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary transition-colors">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">تواصل معنا</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">mail</span>osamaabd364@gmail.com</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">call</span>+249 125 798 205</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-700">
+            <p class="text-center text-xs text-slate-500">© 2026 SudanCars. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>'''

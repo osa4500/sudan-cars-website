@@ -1,0 +1,329 @@
+
+# Create terms.html - Terms and Conditions Page
+terms_html = '''<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>شروط الاستخدام - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .terms-content h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #1a2b3c;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .dark .terms-content h2 {
+            color: white;
+        }
+        .terms-content h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #334155;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .dark .terms-content h3 {
+            color: #cbd5e1;
+        }
+        .terms-content p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+        .terms-content ul {
+            list-style-type: disc;
+            padding-right: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .terms-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+
+                <nav class="hidden xl:flex items-center gap-1 h-full">
+                    <a href="index.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">home</span>الرئيسية
+                    </a>
+                    <a href="cars.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">search</span>تصفح السيارات
+                    </a>
+                    <a href="add-listing.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">add_box</span>إضافة إعلان
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">contact_support</span>تواصل معنا
+                    </a>
+                </nav>
+
+                <div class="flex items-center gap-4">
+                    <a href="add-listing.html" class="hidden md:flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add_circle</span>أضف إعلانك
+                    </a>
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <!-- Page Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-black text-navy-custom dark:text-white mb-4">شروط الاستخدام</h1>
+                <p class="text-slate-500 dark:text-slate-400">آخر تحديث: 1 مارس 2026</p>
+            </div>
+
+            <!-- Terms Content -->
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-8 md:p-12 terms-content">
+                <div class="prose dark:prose-invert max-w-none">
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                        مرحباً بك في SudanCars. باستخدامك لهذه المنصة، فإنك توافق على الالتزام بالشروط والأحكام التالية. يرجى قراءتها بعناية قبل استخدام الموقع.
+                    </p>
+
+                    <h2>1. تعريفات</h2>
+                    <p>في هذه الشروط، يكون للمصطلحات التالية المعاني المحددة:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li><strong>"المنصة" أو "الموقع"</strong>: موقع SudanCars الإلكتروني وتطبيقاته.</li>
+                        <li><strong>"المستخدم"</strong>: أي شخص يستخدم المنصة سواء كان بائعاً أو مشترياً أو زائراً.</li>
+                        <li><strong>"الإعلان"</strong>: أي منشور يتعلق بعرض سيارة للبيع على المنصة.</li>
+                        <li><strong>"الخدمة"</strong>: الخدمات المقدمة من خلال المنصة بما في ذلك عرض وبيع السيارات.</li>
+                    </ul>
+
+                    <h2>2. قبول الشروط</h2>
+                    <p>باستخدامك لمنصة SudanCars، فإنك:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>تقر بأنك قد قرأت وفهمت هذه الشروط والأحكام.</li>
+                        <li>توافق على الالتزام بجميع الشروط والأحكام المذكورة herein.</li>
+                        <li>تقر بأنك تبلغ من العمر 18 عاماً على الأقل.</li>
+                        <li>تقر بأنك مؤهل قانونياً لإبرام عقود ملزمة.</li>
+                    </ul>
+
+                    <h2>3. التسجيل والحساب</h2>
+                    <h3>3.1 إنشاء الحساب</h3>
+                    <p>لاستخدام بعض خدمات المنصة، يجب إنشاء حساب. أنت مسؤول عن:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>تقديم معلومات دقيقة وكاملة وحديثة أثناء التسجيل.</li>
+                        <li>الحفاظ على سرية كلمة المرور الخاصة بك.</li>
+                        <li>إخطارنا فوراً بأي استخدام غير مصرح به لحسابك.</li>
+                        <li>جميع الأنشطة التي تحدث تحت حسابك.</li>
+                    </ul>
+
+                    <h3>3.2 إنهاء الحساب</h3>
+                    <p>نحتفظ بالحق في تعليق أو إنهاء حسابك في أي وقت دون إشعار مسبق إذا:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>انتهكت أي من هذه الشروط.</li>
+                        <li>قدمت معلومات كاذبة أو مضللة.</li>
+                        <li>انخرطت في سلوك احتيالي أو غير قانوني.</li>
+                    </ul>
+
+                    <h2>4. الإعلانات والمحتوى</h2>
+                    <h3>4.1 قواعد نشر الإعلانات</h3>
+                    <p>عند نشر إعلان على المنصة، فإنك تضمن وتقر بأن:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>أنت المالك الشرعي للسيارة أو مخول بالبيع.</li>
+                        <li>جميع المعلومات المقدمة دقيقة وصحيحة.</li>
+                        <li>الصور المرفقة تمثل السيارة الفعلية.</li>
+                        <li>السعر المعلن هو السعر الفعلي للسيارة.</li>
+                    </ul>
+
+                    <h3>4.2 المحتوى المحظور</h3>
+                    <p>يحظر نشر المحتوى التالي:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>سيارات مسروقة أو ذات أوراق غير شرعية.</li>
+                        <li>معلومات كاذبة أو مضللة.</li>
+                        <li>صور غير حقيقية أو معدلة بشكل يخفي عيوب السيارة.</li>
+                        <li>محتوى مسيء أو غير لائق.</li>
+                        <li>إعلانات لمنتجات أو خدمات غير متعلقة بالسيارات.</li>
+                    </ul>
+
+                    <h2>5. الرسوم والمدفوعات</h2>
+                    <h3>5.1 رسوم الإعلان</h3>
+                    <p>رسوم نشر الإعلان كالتالي:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>رسوم الإعلان العادي: 5,000 جنيه سوداني لمدة 30 يوماً.</li>
+                        <li>رسوم التجديد: 5,000 جنيه سوداني لكل 30 يوماً إضافية.</li>
+                    </ul>
+
+                    <h3>5.2 طرق الدفع</h3>
+                    <p>نقبل الدفع عبر:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>بنكك (Bankak)</li>
+                        <li>فوري (Fawry)</li>
+                    </ul>
+
+                    <h3>5.3 سياسة الاسترداد</h3>
+                    <p>لا يتم استرداد الرسوم في الحالات التالية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>تغيير رأي المعلن.</li>
+                        <li>بيع السيارة خارج المنصة.</li>
+                        <li>إزالة الإعلان من قبل المعلن.</li>
+                    </ul>
+
+                    <h2>6. التعاملات بين المستخدمين</h2>
+                    <h3>6.1 مسؤولية التعامل</h3>
+                    <p>تعتبر التعاملات بين البائعين والمشترين مسؤولية الطرفين. نحن لسنا طرفاً في أي صفقة ولا نتحمل مسؤولية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>جودة السيارات المعروضة.</li>
+                        <li>وفاء البائع أو المشتري بالتزاماته.</li>
+                        <li>أي خسائر مالية أو أضرار ناتجة عن التعاملات.</li>
+                    </ul>
+
+                    <h3>6.2 نصائح السلامة</h3>
+                    <p>نوصي باتباع الإرشادات التالية:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>التقاء في أماكن عامة وآمنة.</li>
+                        <li>فحص السيارة جيداً قبل الشراء.</li>
+                        <li>التحقق من أوراق السيارة الرسمية.</li>
+                        <li>عدم إرسال أموال مسبقاً.</li>
+                        <li>إبلاغنا عن أي سلوك مشبوه.</li>
+                    </ul>
+
+                    <h2>7. الملكية الفكرية</h2>
+                    <p>جميع المحتويات الموجودة على المنصة (الشعارات، النصوص، الصور، التصميم) محمية بموجب قوانين الملكية الفكرية. لا يجوز:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>نسخ أو إعادة إنتاج أي جزء من المحتوى دون إذن.</li>
+                        <li>استخدام علامتنا التجارية دون موافقة خطية.</li>
+                        <li>إنشاء أعمال مشتقة من محتوى المنصة.</li>
+                    </ul>
+
+                    <h2>8. حدود المسؤولية</h2>
+                    <p>إلى الحد الأقصى المسموح به قانوناً:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>لا نتحمل مسؤولية أي أضرار مباشرة أو غير مباشرة.</li>
+                        <li>لا نضمن توفر المنصة بشكل مستمر أو خالي من الأخطاء.</li>
+                        <li>لا نتحمل مسؤولية محتوى الإعلانات المنشورة من قبل المستخدمين.</li>
+                    </ul>
+
+                    <h2>9. التعديلات على الشروط</h2>
+                    <p>نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم إشعار المستخدمين بالتغييرات الجوهرية عبر البريد الإلكتروني أو إشعار على المنصة. استمرارك في استخدام المنصة بعد التعديلات يعني قبولك للشروط المعدلة.</p>
+
+                    <h2>10. القانون المطبق</h2>
+                    <p>تخضع هذه الشروط لقوانين جمهورية السودان. أي نزاع ينشأ عن استخدام المنصة يتم حله من خلال المحاكم السودانية المختصة.</p>
+
+                    <h2>11. التواصل معنا</h2>
+                    <p>إذا كان لديك أي استفسارات حول هذه الشروط، يمكنك التواصل معنا عبر:</p>
+                    <ul class="text-slate-600 dark:text-slate-300">
+                        <li>البريد الإلكتروني: osamaabd364@gmail.com</li>
+                        <li>الهاتف: +249 125 798 205</li>
+                        <li>الواتساب: +249 125 798 205</li>
+                    </ul>
+
+                    <div class="mt-12 p-6 bg-slate-50 dark:bg-slate-700 rounded-xl">
+                        <p class="text-sm text-slate-600 dark:text-slate-300 text-center">
+                            باستخدامك لمنصة SudanCars، فإنك تقر بأنك قد قرأت وفهمت ووافقت على جميع الشروط والأحكام المذكورة أعلاه.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy-custom text-slate-300 pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 text-white">
+                    <span class="material-symbols-outlined text-4xl text-primary">directions_car</span>
+                    <h2 class="text-2xl font-black">SudanCars</h2>
+                </div>
+                <p class="text-sm leading-relaxed">منصتكم الموثوقة لبيع وشراء السيارات في جميع أنحاء السودان.</p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">روابط سريعة</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html" class="hover:text-primary transition-colors">سيارات للبيع</a></li>
+                    <li><a href="add-listing.html" class="hover:text-primary transition-colors">إضافة إعلان</a></li>
+                    <li><a href="contact.html" class="hover:text-primary transition-colors">تواصل معنا</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">الدعم</h4>
+                <ul class="space-y-4">
+                    <li><a href="faq.html" class="hover:text-primary transition-colors">الأسئلة الشائعة</a></li>
+                    <li><a href="terms.html" class="hover:text-primary transition-colors">شروط الاستخدام</a></li>
+                    <li><a href="privacy.html" class="hover:text-primary transition-colors">سياسة الخصوصية</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">تواصل معنا</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">mail</span>osamaabd364@gmail.com</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">call</span>+249 125 798 205</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-700">
+            <p class="text-center text-xs text-slate-500">© 2026 SudanCars. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>'''

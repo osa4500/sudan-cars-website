@@ -1,0 +1,303 @@
+
+# Create my-ads.html - My Ads Page
+my_ads_html = '''<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>إعلاناتي - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .sidebar-link {
+            transition: all 0.3s ease;
+        }
+        .sidebar-link:hover, .sidebar-link.active {
+            background-color: rgba(244, 123, 37, 0.1);
+            color: #f47b25;
+            border-right: 3px solid #f47b25;
+        }
+        .tab-btn {
+            transition: all 0.3s ease;
+        }
+        .tab-btn.active {
+            background-color: #f47b25;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased min-h-screen">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+                <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col lg:flex-row gap-8">
+                
+                <!-- Sidebar -->
+                <aside class="lg:w-80 shrink-0">
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 overflow-hidden sticky top-24">
+                        <div class="p-6 bg-navy-custom text-white text-center">
+                            <div class="w-24 h-24 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold border-4 border-primary/30">
+                                أ م
+                            </div>
+                            <h2 class="text-xl font-bold mb-1">أحمد محمد</h2>
+                            <p class="text-slate-300 text-sm">+249123456789</p>
+                        </div>
+                        <nav class="p-4 space-y-1">
+                            <a href="profile.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined">dashboard</span>لوحة التحكم
+                            </a>
+                            <a href="my-ads.html" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg font-bold">
+                                <span class="material-symbols-outlined">inventory_2</span>إعلاناتي
+                            </a>
+                            <a href="favorites.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined">favorite</span>المفضلة
+                            </a>
+                            <a href="messages.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined">chat</span>الرسائل
+                            </a>
+                            <a href="settings.html" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-slate-600 dark:text-slate-300">
+                                <span class="material-symbols-outlined">settings</span>الإعدادات
+                            </a>
+                            <hr class="my-4 border-slate-200 dark:border-slate-700">
+                            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-3 rounded-lg font-bold text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all">
+                                <span class="material-symbols-outlined">logout</span>تسجيل الخروج
+                            </button>
+                        </nav>
+                    </div>
+                </aside>
+
+                <!-- Main Content -->
+                <div class="flex-1">
+                    <!-- Header -->
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                        <h2 class="text-2xl font-black text-navy-custom dark:text-white">إعلاناتي</h2>
+                        <a href="add-listing.html" class="btn-primary text-white font-bold py-3 px-6 rounded-xl flex items-center gap-2 shadow-lg">
+                            <span class="material-symbols-outlined">add_circle</span>إضافة إعلان جديد
+                        </a>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="flex gap-2 mb-6 bg-white dark:bg-slate-800 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                        <button onclick="filterAds('all')" class="tab-btn active flex-1 py-2 px-4 rounded-lg font-bold text-sm" id="tab-all">الكل (8)</button>
+                        <button onclick="filterAds('active')" class="tab-btn flex-1 py-2 px-4 rounded-lg font-bold text-sm text-slate-600 dark:text-slate-300" id="tab-active">نشط (5)</button>
+                        <button onclick="filterAds('pending')" class="tab-btn flex-1 py-2 px-4 rounded-lg font-bold text-sm text-slate-600 dark:text-slate-300" id="tab-pending">قيد المراجعة (2)</button>
+                        <button onclick="filterAds('expired')" class="tab-btn flex-1 py-2 px-4 rounded-lg font-bold text-sm text-slate-600 dark:text-slate-300" id="tab-expired">منتهي (1)</button>
+                    </div>
+
+                    <!-- Ads Grid -->
+                    <div id="adsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Ads loaded dynamically -->
+                    </div>
+
+                    <!-- Empty State (Hidden by default) -->
+                    <div id="emptyState" class="hidden text-center py-16">
+                        <div class="w-24 h-24 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4 text-slate-400">
+                            <span class="material-symbols-outlined text-5xl">inventory_2</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-navy-custom dark:text-white mb-2">لا توجد إعلانات</h3>
+                        <p class="text-slate-500 dark:text-slate-400 mb-6">لم تقم بإضافة أي إعلانات بعد</p>
+                        <a href="add-listing.html" class="btn-primary text-white font-bold py-3 px-8 rounded-xl inline-flex items-center gap-2">
+                            <span class="material-symbols-outlined">add_circle</span>أضف إعلانك الأول
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const allAds = [
+            {id: 1, title: "تويوتا لاندكروزر V8 2022", price: "12,500,000", status: "active", views: 245, image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400", date: "2026-03-01", expiry: "2026-04-01", location: "الخرطوم"},
+            {id: 2, title: "هيونداي توسان 2018", price: "4,200,000", status: "active", views: 189, image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400", date: "2026-02-28", expiry: "2026-03-28", location: "الجزيرة"},
+            {id: 3, title: "مرسيدس E300 2021", price: "18,000,000", status: "active", views: 156, image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=400", date: "2026-02-25", expiry: "2026-03-25", location: "الخرطوم"},
+            {id: 4, title: "كيا سبورتاج 2020", price: "6,800,000", status: "active", views: 134, image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400", date: "2026-02-20", expiry: "2026-03-20", location: "بورتسودان"},
+            {id: 5, title: "نيسان باترول 2020", price: "15,000,000", status: "active", views: 98, image: "https://images.unsplash.com/photo-1563720223185-11003d516935?w=400", date: "2026-02-15", expiry: "2026-03-15", location: "الخرطوم"},
+            {id: 6, title: "تويوتا كامري 2019", price: "7,500,000", status: "pending", views: 0, image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400", date: "2026-03-01", expiry: "---", location: "مدني"},
+            {id: 7, title: "هيونداي إلنترا 2017", price: "3,800,000", status: "pending", views: 0, image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400", date: "2026-02-28", expiry: "---", location: "عطبرة"},
+            {id: 8, title: "شيفروليه تاهو 2021", price: "22,000,000", status: "expired", views: 312, image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=400", date: "2026-01-15", expiry: "2026-02-15", location: "الخرطوم"},
+        ];
+
+        let currentFilter = 'all';
+
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            renderAds();
+        });
+
+        function checkAuth() {
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            if (!userData.isLoggedIn) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        function renderAds() {
+            const grid = document.getElementById('adsGrid');
+            const emptyState = document.getElementById('emptyState');
+            
+            let filtered = allAds;
+            if (currentFilter !== 'all') {
+                filtered = allAds.filter(ad => ad.status === currentFilter);
+            }
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = '';
+
+            filtered.forEach(ad => {
+                const statusConfig = {
+                    active: { label: 'نشط', class: 'bg-green-100 dark:bg-green-900/30 text-green-600', icon: 'check_circle' },
+                    pending: { label: 'قيد المراجعة', class: 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600', icon: 'schedule' },
+                    expired: { label: 'منتهي', class: 'bg-red-100 dark:bg-red-900/30 text-red-600', icon: 'cancel' }
+                };
+                
+                const status = statusConfig[ad.status];
+                
+                grid.innerHTML += `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 overflow-hidden group">
+                        <div class="relative h-48">
+                            <img src="${ad.image}" alt="${ad.title}" class="w-full h-full object-cover">
+                            <div class="absolute top-3 right-3 ${status.class} px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                                <span class="material-symbols-outlined text-sm">${status.icon}</span>
+                                ${status.label}
+                            </div>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="text-lg font-bold text-navy-custom dark:text-white mb-2">${ad.title}</h3>
+                            <div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400 mb-4">
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-sm">location_on</span>${ad.location}</span>
+                                <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-sm">visibility</span>${ad.views}</span>
+                            </div>
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-2xl font-black text-primary">${ad.price} ج.س</span>
+                                <span class="text-xs text-slate-400">ينتهي: ${ad.expiry}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <a href="car-details.html?id=${ad.id}" class="flex-1 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg font-bold text-center transition-all text-sm">
+                                    عرض
+                                </a>
+                                <a href="edit-listing.html?id=${ad.id}" class="flex-1 py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary rounded-lg font-bold text-center transition-all text-sm">
+                                    تعديل
+                                </a>
+                                ${ad.status === 'expired' ? `
+                                <button onclick="renewAd(${ad.id})" class="flex-1 py-2 bg-green-100 hover:bg-green-500 hover:text-white text-green-600 rounded-lg font-bold text-center transition-all text-sm">
+                                    تجديد
+                                </button>
+                                ` : ''}
+                                <button onclick="deleteAd(${ad.id})" class="w-10 h-10 flex items-center justify-center text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-all">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterAds(status) {
+            currentFilter = status;
+            
+            // Update tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('tab-' + status).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (!btn.classList.contains('active')) {
+                    btn.classList.add('text-slate-600', 'dark:text-slate-300');
+                } else {
+                    btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+                }
+            });
+            
+            renderAds();
+        }
+
+        function deleteAd(id) {
+            if (confirm('هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                alert('تم حذف الإعلان بنجاح');
+            }
+        }
+
+        function renewAd(id) {
+            if (confirm('سيتم تجديد الإعلان لمدة 30 يوماً مقابل 5,000 جنيه. هل تريد المتابعة؟')) {
+                alert('تم إرسال طلب التجديد بنجاح');
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('userData');
+            window.location.href = 'index.html';
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>'''
