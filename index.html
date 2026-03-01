@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SudanCars - سوق السيارات الأول في السودان</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                        "whatsapp": "#25D366",
+                        "whatsapp-hover": "#128C7E",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .nav-link-active { position: relative; color: #f47b25; }
+        .nav-link-active::after {
+            content: ''; position: absolute; bottom: -18px; left: 0; right: 0;
+            height: 3px; background-color: #f47b25; border-radius: 3px 3px 0 0;
+        }
+        .hero-gradient { background: linear-gradient(135deg, rgba(26, 43, 60, 0.85) 0%, rgba(26, 43, 60, 0.7) 100%); }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
+        .image-zoom { transition: transform 0.5s ease; }
+        .group:hover .image-zoom { transform: scale(1.1); }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.8; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .loading-skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <nav class="hidden xl:flex items-center gap-1 h-full">
+                    <a href="index.html" class="nav-link-active px-4 py-2 text-sm font-bold h-full flex items-center gap-2 rounded-lg">
+                        <span class="material-symbols-outlined text-lg">home</span>الرئيسية
+                    </a>
+                    <a href="cars.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">search</span>تصفح السيارات
+                    </a>
+                    <a href="add-listing.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">add_box</span>إضافة إعلان
+                    </a>
+                    <a href="contact.html" class="px-4 py-2 text-sm font-bold text-slate-600 dark:text-slate-300 hover:text-primary h-full flex items-center gap-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined text-lg">contact_support</span>تواصل معنا
+                    </a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="flex items-center gap-4">
+                    <a href="add-listing.html" class="hidden md:flex items-center gap-2 btn-primary text-white px-5 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-primary/20">
+                        <span class="material-symbols-outlined text-xl">add_circle</span>أضف إعلانك
+                    </a>
+                    
+                    <!-- User Menu -->
+                    <div class="relative" id="userMenu">
+                        <button onclick="toggleUserMenu()" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary cursor-pointer flex items-center justify-center bg-primary text-white hover:shadow-lg transition-all">
+                            <span class="material-symbols-outlined">person</span>
+                        </button>
+                        <!-- Dropdown -->
+                        <div id="userDropdown" class="hidden absolute left-0 top-full mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-200 dark:border-slate-700 py-2 z-50">
+                            <a href="login.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">login</span>تسجيل الدخول
+                            </a>
+                            <a href="register.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">person_add</span>إنشاء حساب
+                            </a>
+                            <hr class="my-2 border-slate-200 dark:border-slate-700">
+                            <a href="profile.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">dashboard</span>لوحة التحكم
+                            </a>
+                            <a href="my-ads.html" class="block px-4 py-2 text-sm font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-sm">inventory_2</span>إعلاناتي
+                            </a>
+                        </div>
+                    </div>
+
+                    <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                        <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[600px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 hero-gradient z-10"></div>
+        <img alt="Hero" class="absolute inset-0 w-full h-full object-cover" src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=1920"/>
+        <div class="relative z-20 text-center px-4 w-full max-w-6xl">
+            <h2 class="text-white text-4xl md:text-6xl font-black mb-6 leading-tight drop-shadow-lg">سوق السيارات الأول في السودان</h2>
+            <p class="text-slate-200 text-lg md:text-xl mb-10 max-w-2xl mx-auto">تصفح آلاف السيارات المستعملة والجديدة المتاحة للبيع الفوري</p>
+            
+            <!-- Search Form -->
+            <form action="cars.html" method="GET" class="glass-effect p-4 md:p-6 rounded-2xl shadow-2xl grid grid-cols-1 md:grid-cols-5 gap-4 items-end">
+                <div class="space-y-2 text-right">
+                    <label class="text-sm font-bold text-slate-500">الماركة</label>
+                    <select name="brand" id="heroBrand" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                        <option value="">كل الماركات</option>
+                    </select>
+                </div>
+                <div class="space-y-2 text-right">
+                    <label class="text-sm font-bold text-slate-500">الموديل</label>
+                    <select name="model" id="heroModel" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                        <option value="">كل الموديلات</option>
+                    </select>
+                </div>
+                <div class="space-y-2 text-right">
+                    <label class="text-sm font-bold text-slate-500">الولاية</label>
+                    <select name="state" id="heroState" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                        <option value="">كل الولايات</option>
+                    </select>
+                </div>
+                <div class="space-y-2 text-right">
+                    <label class="text-sm font-bold text-slate-500">السعر</label>
+                    <select name="price" class="w-full bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none">
+                        <option value="">الكل</option>
+                        <option value="0-5000000">أقل من 5 مليون</option>
+                        <option value="5000000-15000000">5 - 15 مليون</option>
+                        <option value="15000000-30000000">15 - 30 مليون</option>
+                        <option value="30000000+">أكثر من 30 مليون</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary text-white font-bold h-[46px] rounded-xl flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">search</span>بحث
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="py-12 -mt-10 relative z-30">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 grid grid-cols-1 md:grid-cols-3 gap-8 border border-slate-100 dark:border-slate-700">
+                <a href="add-listing.html" class="flex flex-col items-center p-6 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all text-primary">
+                        <span class="material-symbols-outlined text-3xl">add_box</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-navy-custom dark:text-white mb-2">إضافة إعلان</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 text-center">قم ببيع سيارتك الآن بأفضل سعر</p>
+                </a>
+                <a href="cars.html" class="flex flex-col items-center p-6 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all text-primary">
+                        <span class="material-symbols-outlined text-3xl">payments</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-navy-custom dark:text-white mb-2">تصفح السيارات</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 text-center">اكتشف أفضل العروض المتاحة</p>
+                </a>
+                <a href="contact.html" class="flex flex-col items-center p-6 rounded-xl hover:bg-primary/5 transition-colors cursor-pointer group">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-white transition-all text-primary">
+                        <span class="material-symbols-outlined text-3xl">verified_user</span>
+                    </div>
+                    <h4 class="text-lg font-bold text-navy-custom dark:text-white mb-2">تواصل معنا</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 text-center">نحن هنا لمساعدتك</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse by State -->
+    <section class="py-16 max-w-7xl mx-auto px-4">
+        <div class="flex items-center justify-between mb-10">
+            <h3 class="text-2xl font-black text-navy-custom dark:text-white border-r-4 border-primary pr-4">تصفح حسب الولاية</h3>
+            <a href="cars.html" class="text-primary font-bold flex items-center gap-1 hover:underline">عرض الكل <span class="material-symbols-outlined">chevron_left</span></a>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6" id="statesGrid">
+            <!-- States loaded dynamically -->
+        </div>
+    </section>
+
+    <!-- Latest Cars -->
+    <section class="py-16 bg-white dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between mb-10">
+                <h3 class="text-2xl font-black text-navy-custom dark:text-white border-r-4 border-primary pr-4">آخر السيارات المضافة</h3>
+                <a href="cars.html" class="bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-lg font-bold flex items-center gap-2 border border-slate-200 dark:border-slate-700 hover:border-primary/30 transition-all">
+                    <span class="material-symbols-outlined">filter_list</span>تصفية النتائج
+                </a>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="latestCars">
+                <!-- Cars loaded dynamically -->
+            </div>
+            <div class="mt-12 text-center">
+                <a href="cars.html" class="inline-block bg-navy-custom dark:bg-primary text-white font-bold py-3 px-10 rounded-xl hover:opacity-90 transition-all shadow-xl">عرض جميع السيارات</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-16 bg-navy-custom text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div class="p-6">
+                    <div class="text-4xl font-black text-primary mb-2" id="statCars">0</div>
+                    <div class="text-slate-300">سيارة معروضة</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-black text-primary mb-2" id="statUsers">0</div>
+                    <div class="text-slate-300">مستخدم نشط</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-black text-primary mb-2" id="statDeals">0</div>
+                    <div class="text-slate-300">صفقة ناجحة</div>
+                </div>
+                <div class="p-6">
+                    <div class="text-4xl font-black text-primary mb-2" id="statStates">18</div>
+                    <div class="text-slate-300">ولاية</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="py-16 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h3 class="text-3xl font-black text-navy-custom dark:text-white mb-4">لماذا تختار SudanCars؟</h3>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">نحن نوفر لك أفضل تجربة لبيع وشراء السيارات في السودان</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                    <span class="material-symbols-outlined text-4xl">verified</span>
+                </div>
+                <h4 class="text-xl font-bold text-navy-custom dark:text-white mb-3">إعلانات موثوقة</h4>
+                <p class="text-slate-500 dark:text-slate-400">نتحقق من جميع الإعلانات لضمان مصداقية المعلومات وحماية المستخدمين</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                    <span class="material-symbols-outlined text-4xl">speed</span>
+                </div>
+                <h4 class="text-xl font-bold text-navy-custom dark:text-white mb-3">بيع سريع</h4>
+                <p class="text-slate-500 dark:text-slate-400">وصل لآلاف المشترين المحتملين في جميع ولايات السودان خلال دقائق</p>
+            </div>
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 text-center">
+                <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
+                    <span class="material-symbols-outlined text-4xl">support_agent</span>
+                </div>
+                <h4 class="text-xl font-bold text-navy-custom dark:text-white mb-3">دعم فني 24/7</h4>
+                <p class="text-slate-500 dark:text-slate-400">فريق متخصص جاهز لمساعدتك في أي وقت عبر الواتساب أو البريد الإلكتروني</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-custom text-slate-300 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 text-white">
+                    <span class="material-symbols-outlined text-4xl text-primary">directions_car</span>
+                    <h2 class="text-2xl font-black">SudanCars</h2>
+                </div>
+                <p class="text-sm leading-relaxed">منصتكم الموثوقة لبيع وشراء السيارات في جميع أنحاء السودان. نجعل تجربتك أسهل وأ safer.</p>
+                <div class="flex gap-4">
+                    <a href="https://wa.me/249125798205" target="_blank" class="w-10 h-10 rounded-full bg-whatsapp flex items-center justify-center hover:bg-whatsapp-hover transition-all">
+                        <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                    </a>
+                    <a href="mailto:osamaabd364@gmail.com" class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center hover:bg-primary transition-all">
+                        <span class="material-symbols-outlined">mail</span>
+                    </a>
+                    <a href="tel:+249125798205" class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center hover:bg-primary transition-all">
+                        <span class="material-symbols-outlined">call</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">روابط سريعة</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>سيارات للبيع</a></li>
+                    <li><a href="add-listing.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>إضافة إعلان</a></li>
+                    <li><a href="contact.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>تواصل معنا</a></li>
+                    <li><a href="about.html" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>من نحن</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">الولايات</h4>
+                <ul class="space-y-4">
+                    <li><a href="cars.html?state=khartoum" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>الخرطوم</a></li>
+                    <li><a href="cars.html?state=portsudan" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>بورتسودان</a></li>
+                    <li><a href="cars.html?state=madani" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>مدني</a></li>
+                    <li><a href="cars.html?state=atbara" class="hover:text-primary transition-colors flex items-center gap-2"><span class="material-symbols-outlined text-sm">chevron_left</span>عطبرة</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold text-lg mb-6">تواصل معنا</h4>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">mail</span>osamaabd364@gmail.com</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">call</span>+249 125 798 205</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">location_on</span>الخرطوم، السودان</li>
+                    <li class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">schedule</span>24/7 خدمة العملاء</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 mt-16 pt-8 border-t border-slate-700">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-slate-500">© 2026 SudanCars. جميع الحقوق محفوظة.</p>
+                <div class="flex gap-6 text-xs">
+                    <a href="privacy.html" class="hover:text-primary transition-colors">سياسة الخصوصية</a>
+                    <a href="terms.html" class="hover:text-primary transition-colors">شروط الاستخدام</a>
+                    <a href="faq.html" class="hover:text-primary transition-colors">الأسئلة الشائعة</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data
+        const sudanStates = [
+            {name: "الخرطوم", count: "1,240", image: "https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=200"},
+            {name: "الجزيرة", count: "856", image: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=200"},
+            {name: "البحر الأحمر", count: "432", image: "https://images.unsplash.com/photo-1507136566006-cfc505b114fc?w=200"},
+            {name: "نهر النيل", count: "321", image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=200"},
+            {name: "القضارف", count: "198", image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=200"},
+            {name: "شمال كردفان", count: "267", image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=200"}
+        ];
+
+        const carBrands = ["تويوتا", "هيونداي", "كيا", "مرسيدس", "بي إم دبليو", "نيسان", "ميتسوبيشي", "شيفروليه", "فورد", "هوندا", "ليكزس", "جيب", "أودي", "فولكس فاجن", "سوزوكي", "إيسوزو", "شانجان", "جيلي", "بي واي دي", "مازدا"];
+        
+        const carModels = {
+            "تويوتا": ["كامري", "كورولا", "لاندكروزر", "هايلوكس", "راف فور", "برادو", "فورتشنر", "ياريس", "أفالون", "سيكويا"],
+            "هيونداي": ["توسان", "إلنترا", "سوناتا", "كريتا", "سانتافيه", "i10", "i20", "i30", "أكسنت", "باليساد"],
+            "كيا": ["سبورتاج", "سيراتو", "أوبتيما", "سورينتو", "ريو", "بيكانتو", "سيد", "كارينز", "موهافي", "تيلورايد"],
+            "مرسيدس": ["E300", "C200", "S500", "GLE", "GLC", "A200", "CLA", "GLA", "G63", "مايباخ"],
+            "نيسان": ["التيما", "باترول", "صني", "نيفارا", "اكستريل", "جuke", "ماكسيما", "مورانو", "باثفايندر", "تيدا"],
+            "شيفروليه": ["كابتيفا", "ماليبو", "كروز", "تاهو", "سيلفرادو", "كمارو", "إكوينوكس", " blazer", "سوبربان", "كورفيت"]
+        };
+
+        const latestCars = [
+            {title: "تويوتا لاندكروزر V8", price: "12,500,000", location: "الخرطوم", year: "2022", image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=600", isNew: true, id: 1},
+            {title: "هيونداي توسان", price: "4,200,000", location: "الجزيرة", year: "2018", image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=600", isNew: false, id: 2},
+            {title: "مرسيدس E300", price: "18,000,000", location: "الخرطوم بحري", year: "2021", image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=600", isNew: true, id: 3},
+            {title: "كيا سبورتاج", price: "6,800,000", location: "بورتسودان", year: "2020", image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600", isNew: false, id: 4}
+        ];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            populateSelects();
+            renderStates();
+            renderLatestCars();
+            animateStats();
+        });
+
+        function populateSelects() {
+            const brandSelect = document.getElementById('heroBrand');
+            const modelSelect = document.getElementById('heroModel');
+            const stateSelect = document.getElementById('heroState');
+
+            carBrands.forEach(brand => {
+                brandSelect.innerHTML += `<option value="${brand}">${brand}</option>`;
+            });
+
+            // Populate models based on brand selection
+            brandSelect.addEventListener('change', function() {
+                modelSelect.innerHTML = '<option value="">كل الموديلات</option>';
+                const models = carModels[this.value] || [];
+                models.forEach(model => {
+                    modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
+                });
+            });
+
+            // Add all models initially
+            Object.values(carModels).flat().forEach(model => {
+                modelSelect.innerHTML += `<option value="${model}">${model}</option>`;
+            });
+
+            const allStates = ["الخرطوم", "الجزيرة", "البحر الأحمر", "نهر النيل", "القضارف", "شمال كردفان", "جنوب كردفان", "غرب كردفان", "شمال دارفور", "جنوب دارفور", "غرب دارفور", "شرق دارفور", "وسط دارفور", "سنار", "البحر الأحمر", "كسلا", "النيل الأبيض", "النيل الأزرق", "الشمالية", "غرب كردفان"];
+            allStates.forEach(state => {
+                stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+            });
+        }
+
+        function renderStates() {
+            const container = document.getElementById('statesGrid');
+            sudanStates.forEach(state => {
+                container.innerHTML += `
+                    <a href="cars.html?state=${encodeURIComponent(state.name)}" class="flex flex-col items-center cursor-pointer group">
+                        <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-md group-hover:border-primary transition-all">
+                            <img alt="${state.name}" class="w-full h-full object-cover" src="${state.image}"/>
+                        </div>
+                        <span class="mt-4 font-bold text-slate-800 dark:text-slate-200">${state.name}</span>
+                        <span class="text-xs text-slate-500">${state.count} سيارة</span>
+                    </a>
+                `;
+            });
+        }
+
+        function renderLatestCars() {
+            const container = document.getElementById('latestCars');
+            latestCars.forEach(car => {
+                container.innerHTML += `
+                    <div class="card-hover bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700 group">
+                        <div class="relative h-56 overflow-hidden">
+                            ${car.isNew ? '<span class="absolute top-3 right-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full z-20">جديد</span>' : ''}
+                            <div class="absolute bottom-3 left-3 bg-navy-custom/90 text-white px-3 py-1 rounded-lg font-black text-lg z-20">${car.price} ج.س</div>
+                            <img alt="${car.title}" class="w-full h-full object-cover image-zoom" src="${car.image}"/>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="text-xl font-bold text-navy-custom dark:text-white mb-2">${car.title}</h4>
+                            <div class="flex flex-wrap gap-3 mb-4 text-sm text-slate-500 dark:text-slate-400">
+                                <div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">location_on</span>${car.location}</div>
+                                <div class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-primary">calendar_month</span>${car.year}</div>
+                            </div>
+                            <a href="car-details.html?id=${car.id}" class="block w-full py-2 bg-primary/10 hover:bg-primary hover:text-white text-primary font-bold rounded-lg transition-all text-center">تفاصيل الإعلان</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function animateStats() {
+            const stats = [
+                {id: 'statCars', target: 3240},
+                {id: 'statUsers', target: 8560},
+                {id: 'statDeals', target: 1280}
+            ];
+
+            stats.forEach(stat => {
+                const element = document.getElementById(stat.id);
+                let current = 0;
+                const increment = stat.target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= stat.target) {
+                        current = stat.target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, 30);
+            });
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        function toggleUserMenu() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('userMenu');
+            if (!menu.contains(event.target)) {
+                document.getElementById('userDropdown').classList.add('hidden');
+            }
+        });
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

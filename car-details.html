@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>تفاصيل السيارة - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                        "whatsapp": "#25D366",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+        .image-gallery {
+            scroll-snap-type: x mandatory;
+        }
+        .gallery-item {
+            scroll-snap-align: start;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+                <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6">
+                <a href="index.html" class="hover:text-primary">الرئيسية</a>
+                <span class="material-symbols-outlined text-sm">chevron_left</span>
+                <a href="cars.html" class="hover:text-primary">السيارات</a>
+                <span class="material-symbols-outlined text-sm">chevron_left</span>
+                <span class="text-slate-900 dark:text-slate-100">تويوتا لاندكروزر V8</span>
+            </nav>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left Column: Images & Details -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Image Gallery -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-700">
+                        <div class="relative h-96 overflow-hidden group">
+                            <img id="mainImage" src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" alt="Car">
+                            <div class="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-bold">جديد</div>
+                            <button onclick="prevImage()" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 dark:bg-slate-800/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all">
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </button>
+                            <button onclick="nextImage()" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/90 dark:bg-slate-800/90 rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all">
+                                <span class="material-symbols-outlined">chevron_left</span>
+                            </button>
+                        </div>
+                        <div class="p-4 flex gap-2 overflow-x-auto image-gallery">
+                            <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=200" class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-primary hover:opacity-80 transition-all" onclick="changeImage(this.src)">
+                            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=200" class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary hover:opacity-80 transition-all" onclick="changeImage(this.src)">
+                            <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=200" class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary hover:opacity-80 transition-all" onclick="changeImage(this.src)">
+                            <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=200" class="w-24 h-24 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-primary hover:opacity-80 transition-all" onclick="changeImage(this.src)">
+                        </div>
+                    </div>
+
+                    <!-- Car Info -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-100 dark:border-slate-700">
+                        <div class="flex items-start justify-between mb-6">
+                            <div>
+                                <h1 class="text-3xl font-black text-navy-custom dark:text-white mb-2">تويوتا لاندكروزر V8 2022</h1>
+                                <div class="flex items-center gap-4 text-sm text-slate-500 dark:text-slate-400">
+                                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary">location_on</span> الخرطوم</span>
+                                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary">schedule</span> منذ ساعتين</span>
+                                    <span class="flex items-center gap-1"><span class="material-symbols-outlined text-primary">visibility</span> 245 مشاهدة</span>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <div class="text-3xl font-black text-primary">12,500,000</div>
+                                <div class="text-sm text-slate-500">جنيه سوداني</div>
+                            </div>
+                        </div>
+
+                        <hr class="border-slate-200 dark:border-slate-700 mb-6">
+
+                        <!-- Specifications Grid -->
+                        <h3 class="text-lg font-bold text-navy-custom dark:text-white mb-4">المواصفات</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-xl p-4 text-center">
+                                <span class="material-symbols-outlined text-primary text-2xl mb-2">calendar_month</span>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">السنة</div>
+                                <div class="font-bold text-navy-custom dark:text-white">2022</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-xl p-4 text-center">
+                                <span class="material-symbols-outlined text-primary text-2xl mb-2">speed</span>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">المسافة</div>
+                                <div class="font-bold text-navy-custom dark:text-white">15,000 كم</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-xl p-4 text-center">
+                                <span class="material-symbols-outlined text-primary text-2xl mb-2">local_gas_station</span>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">الوقود</div>
+                                <div class="font-bold text-navy-custom dark:text-white">بنزين</div>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-700 rounded-xl p-4 text-center">
+                                <span class="material-symbols-outlined text-primary text-2xl mb-2">settings</span>
+                                <div class="text-sm text-slate-500 dark:text-slate-400">الناقل</div>
+                                <div class="font-bold text-navy-custom dark:text-white">أوتوماتيك</div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                <span class="material-symbols-outlined text-primary">palette</span>
+                                <div>
+                                    <div class="text-xs text-slate-500">اللون</div>
+                                    <div class="font-bold text-sm">أبيض</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <div>
+                                    <div class="text-xs text-slate-500">الحالة</div>
+                                    <div class="font-bold text-sm">ممتازة</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-700 rounded-lg">
+                                <span class="material-symbols-outlined text-primary">person</span>
+                                <div>
+                                    <div class="text-xs text-slate-500">المالك</div>
+                                    <div class="font-bold text-sm">أول</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-navy-custom dark:text-white mb-4">المواصفات الإضافية</h3>
+                        <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">مكيف</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">فرامل ABS</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">وسائد هوائية</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">فتحة سقف</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">مقاعد جلد</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">نظام ملاحة</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">كاميرا خلفية</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-bold">حساسات</span>
+                        </div>
+
+                        <h3 class="text-lg font-bold text-navy-custom dark:text-white mb-4">الوصف</h3>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
+                            السيارة بحالة ممتازة جداً، صيانة دورية منتظمة في الوكالة. 
+                            جميع الكماليات متوفرة. 
+                            رقم الهيكل سليم 100%.
+                            مافي أي حوادث سابقة.
+                            استعمال خفيف (سيدة).
+                            السيارة جاهزة للمعاينة في أي وقت.
+                            السعر قابل للتفاوض للجادين فقط.
+                        </p>
+                    </div>
+
+                    <!-- Safety Tips -->
+                    <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-2xl p-6">
+                        <h4 class="font-bold text-yellow-800 dark:text-yellow-200 mb-3 flex items-center gap-2">
+                            <span class="material-symbols-outlined">security</span> نصائح السلامة
+                        </h4>
+                        <ul class="space-y-2 text-sm text-yellow-700 dark:text-yellow-300">
+                            <li>• قابل البائع في مكان عام وآمن</li>
+                            <li>• افحص السيارة جيداً قبل الشراء</li>
+                            <li>• تأكد من أوراق السيارة الرسمية</li>
+                            <li>• لا ترسل أموال مسبقاً قبل المعاينة</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Right Column: Seller Info & Actions -->
+                <div class="space-y-6">
+                    <!-- Seller Card -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-100 dark:border-slate-700 sticky top-24">
+                        <div class="text-center mb-6">
+                            <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-3 text-primary text-3xl font-bold">
+                                أ م
+                            </div>
+                            <h3 class="font-bold text-lg text-navy-custom dark:text-white">أحمد محمد</h3>
+                            <p class="text-sm text-slate-500">عضو منذ يناير 2026</p>
+                            <div class="flex items-center justify-center gap-1 mt-2">
+                                <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
+                                <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
+                                <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
+                                <span class="material-symbols-outlined text-yellow-400 text-sm">star</span>
+                                <span class="material-symbols-outlined text-yellow-400 text-sm">star_half</span>
+                                <span class="text-sm text-slate-500 mr-1">(4.5)</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <a href="tel:+249123456789" class="flex items-center justify-center gap-2 w-full py-3 bg-primary text-white rounded-xl font-bold hover:bg-primary-hover transition-all">
+                                <span class="material-symbols-outlined">call</span>
+                                <span>اتصل الآن</span>
+                            </a>
+                            <a href="https://wa.me/249123456789" target="_blank" class="flex items-center justify-center gap-2 w-full py-3 bg-whatsapp text-white rounded-xl font-bold hover:opacity-90 transition-all">
+                                <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                                <span>واتساب</span>
+                            </a>
+                            <button onclick="showChat()" class="flex items-center justify-center gap-2 w-full py-3 border-2 border-slate-200 dark:border-slate-600 rounded-xl font-bold text-slate-700 dark:text-slate-200 hover:border-primary hover:text-primary transition-all">
+                                <span class="material-symbols-outlined">chat</span>
+                                <span>مراسلة</span>
+                            </button>
+                        </div>
+
+                        <hr class="border-slate-200 dark:border-slate-700 my-6">
+
+                        <div class="space-y-3 text-sm">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-500">رقم الإعلان:</span>
+                                <span class="font-mono font-bold">#12345</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-500">تاريخ النشر:</span>
+                                <span class="font-bold">01/03/2026</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-500">المدينة:</span>
+                                <span class="font-bold">الخرطوم</span>
+                            </div>
+                        </div>
+
+                        <button onclick="reportAd()" class="w-full mt-6 text-red-500 text-sm hover:underline flex items-center justify-center gap-1">
+                            <span class="material-symbols-outlined text-sm">flag</span>
+                            الإبلاغ عن إعلان مخالف
+                        </button>
+                    </div>
+
+                    <!-- Similar Cars -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-lg border border-slate-100 dark:border-slate-700">
+                        <h3 class="font-bold text-lg text-navy-custom dark:text-white mb-4">سيارات مشابهة</h3>
+                        <div class="space-y-4">
+                            <a href="car-details.html?id=2" class="flex gap-3 group">
+                                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=200" class="w-24 h-20 object-cover rounded-lg" alt="Car">
+                                <div>
+                                    <h4 class="font-bold text-sm text-navy-custom dark:text-white group-hover:text-primary transition-colors">هيونداي توسان 2018</h4>
+                                    <p class="text-primary font-bold text-sm">4,200,000 ج.س</p>
+                                    <p class="text-xs text-slate-500">الجزيرة</p>
+                                </div>
+                            </a>
+                            <a href="car-details.html?id=3" class="flex gap-3 group">
+                                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=200" class="w-24 h-20 object-cover rounded-lg" alt="Car">
+                                <div>
+                                    <h4 class="font-bold text-sm text-navy-custom dark:text-white group-hover:text-primary transition-colors">مرسيدس E300 2021</h4>
+                                    <p class="text-primary font-bold text-sm">18,000,000 ج.س</p>
+                                    <p class="text-xs text-slate-500">الخرطوم بحري</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Modal -->
+    <div id="chatModal" class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+            <div class="bg-navy-custom text-white p-4 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center">أ م</div>
+                    <div>
+                        <div class="font-bold">أحمد محمد</div>
+                        <div class="text-xs text-slate-300">متصل الآن</div>
+                    </div>
+                </div>
+                <button onclick="closeChat()" class="text-white hover:text-slate-300">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="h-80 overflow-y-auto p-4 space-y-4 bg-slate-50 dark:bg-slate-900" id="chatMessages">
+                <div class="flex justify-end">
+                    <div class="bg-primary text-white px-4 py-2 rounded-2xl rounded-tr-sm max-w-[80%]">
+                        السلام عليكم، هل السيارة متوفرة؟
+                    </div>
+                </div>
+                <div class="flex justify-start">
+                    <div class="bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[80%] shadow-sm">
+                        وعليكم السلام، نعم متوفرة للمعاينة اليوم
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-slate-200 dark:border-slate-700 flex gap-2">
+                <input type="text" placeholder="اكتب رسالتك..." class="flex-1 bg-slate-100 dark:bg-slate-700 border-0 rounded-full px-4 py-2 focus:ring-2 focus:ring-primary outline-none" onkeypress="if(event.key==='Enter')sendMessage()">
+                <button onclick="sendMessage()" class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center hover:bg-primary-hover transition-all">
+                    <span class="material-symbols-outlined">send</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const images = [
+            "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=1200",
+            "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=1200",
+            "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=1200",
+            "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1200"
+        ];
+        let currentImage = 0;
+
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+
+        function nextImage() {
+            currentImage = (currentImage + 1) % images.length;
+            document.getElementById('mainImage').src = images[currentImage];
+        }
+
+        function prevImage() {
+            currentImage = (currentImage - 1 + images.length) % images.length;
+            document.getElementById('mainImage').src = images[currentImage];
+        }
+
+        function showChat() {
+            document.getElementById('chatModal').classList.remove('hidden');
+            document.getElementById('chatModal').classList.add('flex');
+        }
+
+        function closeChat() {
+            document.getElementById('chatModal').classList.add('hidden');
+            document.getElementById('chatModal').classList.remove('flex');
+        }
+
+        function sendMessage() {
+            const input = document.querySelector('#chatModal input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const container = document.getElementById('chatMessages');
+            
+            // Add user message
+            container.innerHTML += `
+                <div class="flex justify-end animate-pulse">
+                    <div class="bg-primary text-white px-4 py-2 rounded-2xl rounded-tr-sm max-w-[80%]">
+                        ${message}
+                    </div>
+                </div>
+            `;
+            
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+
+            // Simulate reply
+            setTimeout(() => {
+                container.innerHTML += `
+                    <div class="flex justify-start">
+                        <div class="bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 px-4 py-2 rounded-2xl rounded-tl-sm max-w-[80%] shadow-sm">
+                            شكراً لتواصلك، سأرد عليك في أقرب وقت
+                        </div>
+                    </div>
+                `;
+                container.scrollTop = container.scrollHeight;
+            }, 1000);
+        }
+
+        function reportAd() {
+            if (confirm('هل تريد الإبلاغ عن هذا الإعلان؟')) {
+                alert('تم إرسال البلاغ بنجاح، شكراً لك');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>

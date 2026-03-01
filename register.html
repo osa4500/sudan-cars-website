@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>إنشاء حساب جديد - SudanCars</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#f47b25",
+                        "primary-hover": "#e06d1a",
+                        "background-light": "#f8f7f5",
+                        "background-dark": "#120d0b",
+                        "navy-custom": "#1a2b3c",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Sans Arabic", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans Arabic', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .btn-primary {
+            background: linear-gradient(135deg, #f47b25 0%, #e06d1a 100%);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -10px rgba(244, 123, 37, 0.5);
+        }
+        .input-field {
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(244, 123, 37, 0.15);
+        }
+        .step-active {
+            background-color: #f47b25;
+            color: white;
+        }
+        .step-completed {
+            background-color: #10b981;
+            color: white;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .dark .glass-effect { background: rgba(18, 13, 11, 0.95); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="w-full glass-effect border-b border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3 shrink-0 cursor-pointer group">
+                    <div class="text-primary group-hover:scale-110 transition-transform">
+                        <span class="material-symbols-outlined text-4xl">directions_car</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-black tracking-tight leading-none text-navy-custom dark:text-white">SudanCars</h1>
+                        <span class="text-[10px] text-slate-500 font-medium tracking-widest">السودان للسيارات</span>
+                    </div>
+                </a>
+                <button onclick="toggleDarkMode()" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span>
+                    <span class="material-symbols-outlined hidden dark:block">light_mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex items-center justify-center p-4">
+        <div class="w-full max-w-lg">
+            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-slate-100 dark:border-slate-700">
+                <div class="text-center mb-8">
+                    <div class="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                        <span class="material-symbols-outlined text-4xl">person_add</span>
+                    </div>
+                    <h2 class="text-2xl font-black text-navy-custom dark:text-white mb-2">إنشاء حساب جديد</h2>
+                    <p class="text-slate-500 dark:text-slate-400 text-sm">انضم إلى أكبر سوق للسيارات في السودان</p>
+                </div>
+
+                <!-- Progress Steps -->
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold step-active transition-all" id="step1Indicator">1</div>
+                        <span class="text-xs mt-2 text-slate-500">البيانات</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-slate-200 dark:bg-slate-700 mx-2 rounded">
+                        <div class="h-full bg-primary w-0 transition-all duration-500" id="progressBar"></div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-slate-200 dark:bg-slate-700 text-slate-500 transition-all" id="step2Indicator">2</div>
+                        <span class="text-xs mt-2 text-slate-500">التحقق</span>
+                    </div>
+                    <div class="flex-1 h-1 bg-slate-200 dark:bg-slate-700 mx-2 rounded"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold bg-slate-200 dark:bg-slate-700 text-slate-500 transition-all" id="step3Indicator">3</div>
+                        <span class="text-xs mt-2 text-slate-500">إتمام</span>
+                    </div>
+                </div>
+
+                <!-- Step 1: Basic Info -->
+                <form id="step1Form" onsubmit="goToStep2(event)">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">الاسم الكامل *</label>
+                            <input type="text" name="fullname" placeholder="أحمد محمد عبدالله" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl py-3 px-4 text-right input-field focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" required>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">رقم الهاتف السوداني *</label>
+                            <div class="relative">
+                                <span class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 font-bold">+249</span>
+                                <input type="tel" name="phone" placeholder="912345678" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl py-3 pr-16 pl-4 text-right input-field focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" pattern="[0-9]{9}" required>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-1">سنرسل لك رمز التحقق على هذا الرقم</p>
+                        </div>
+
+                        <div>
+                            <label class="label text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">البريد الإلكتروني (اختياري)</label>
+                            <input type="email" name="email" placeholder="your@email.com" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl py-3 px-4 text-right input-field focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">كلمة المرور *</label>
+                            <div class="relative">
+                                <input type="password" name="password" id="password" placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl py-3 px-4 text-right input-field focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" required minlength="8">
+                                <button type="button" onclick="togglePassword()" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                                    <span class="material-symbols-outlined" id="eyeIcon">visibility_off</span>
+                                </button>
+                            </div>
+                            <div class="mt-2">
+                                <div class="h-1 bg-slate-200 dark:bg-slate-600 rounded-full overflow-hidden">
+                                    <div class="h-full bg-red-500 w-0 transition-all duration-300" id="passwordStrength"></div>
+                                </div>
+                                <p class="text-xs text-slate-500 mt-1" id="passwordHint">يجب أن تحتوي على 8 أحرف على الأقل</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">تأكيد كلمة المرور *</label>
+                            <input type="password" name="confirmPassword" id="confirmPassword" placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl py-3 px-4 text-right input-field focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" required>
+                        </div>
+
+                        <div class="flex items-start gap-2 mt-4">
+                            <input type="checkbox" id="terms" class="w-4 h-4 text-primary rounded border-slate-300 focus:ring-primary mt-1" required>
+                            <label for="terms" class="text-sm text-slate-600 dark:text-slate-400">
+                                أوافق على <a href="terms.html" class="text-primary hover:underline font-bold">شروط الاستخدام</a> و <a href="privacy.html" class="text-primary hover:underline font-bold">سياسة الخصوصية</a>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="w-full btn-primary text-white font-bold py-3 rounded-xl flex items-center justify-center gap-2 mt-6">
+                            <span>الخطوة التالية</span>
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Step 2: Verification (Hidden) -->
+                <div id="step2Form" class="hidden">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
+                            <span class="material-symbols-outlined text-3xl">verified</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-navy-custom dark:text-white mb-2">أدخل رمز التحقق</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">تم إرسال رمز التحقق إلى <span id="verifyPhone" class="font-bold text-slate-700 dark:text-slate-200"></span></p>
+                    </div>
+
+                    <div class="flex justify-center gap-2 mb-6">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 0)">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 1)">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 2)">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 3)">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 4)">
+                        <input type="text" maxlength="1" class="w-12 h-14 text-center text-2xl font-bold bg-slate-50 dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-xl focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 otp-input" oninput="moveToNext(this, 5)">
+                    </div>
+
+                    <div class="text-center mb-6">
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-2">لم تستلم الرمز؟</p>
+                        <button onclick="resendCode()" id="resendBtn" class="text-primary font-bold text-sm hover:underline disabled:opacity-50" disabled>
+                            إعادة الإرسال (<span id="timer">60</span>ث)
+                        </button>
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button onclick="backToStep1()" class="flex-1 py-3 border border-slate-300 dark:border-slate-600 rounded-xl font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all">
+                            رجوع
+                        </button>
+                        <button onclick="verifyCode()" class="flex-1 btn-primary text-white font-bold py-3 rounded-xl">
+                            تحقق
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Success (Hidden) -->
+                <div id="step3Form" class="hidden text-center">
+                    <div class="w-24 h-24 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-6 text-green-500">
+                        <span class="material-symbols-outlined text-5xl">check_circle</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-navy-custom dark:text-white mb-4">تم إنشاء الحساب بنجاح!</h3>
+                    <p class="text-slate-500 dark:text-slate-400 mb-8">يمكنك الآن إضافة إعلاناتك وإدارة حسابك</p>
+                    <a href="profile.html" class="inline-block btn-primary text-white font-bold py-3 px-8 rounded-xl">
+                        الذهاب إلى لوحة التحكم
+                    </a>
+                </div>
+
+                <!-- Login Link -->
+                <p class="text-center mt-6 text-slate-600 dark:text-slate-400" id="loginLink">
+                    لديك حساب بالفعل؟ 
+                    <a href="login.html" class="text-primary font-bold hover:underline">تسجيل الدخول</a>
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let currentStep = 1;
+        let timerInterval;
+        let formData = {};
+
+        function togglePassword() {
+            const password = document.getElementById('password');
+            const eyeIcon = document.getElementById('eyeIcon');
+            if (password.type === 'password') {
+                password.type = 'text';
+                eyeIcon.textContent = 'visibility';
+            } else {
+                password.type = 'password';
+                eyeIcon.textContent = 'visibility_off';
+            }
+        }
+
+        // Password strength checker
+        document.getElementById('password').addEventListener('input', function(e) {
+            const val = e.target.value;
+            const strengthBar = document.getElementById('passwordStrength');
+            const hint = document.getElementById('passwordHint');
+            
+            let strength = 0;
+            if (val.length >= 8) strength += 25;
+            if (val.match(/[a-z]/) && val.match(/[A-Z]/)) strength += 25;
+            if (val.match(/[0-9]/)) strength += 25;
+            if (val.match(/[^a-zA-Z0-9]/)) strength += 25;
+
+            strengthBar.style.width = strength + '%';
+            
+            if (strength <= 25) {
+                strengthBar.className = 'h-full bg-red-500 w-0 transition-all duration-300';
+                hint.textContent = 'ضعيفة جداً';
+                hint.className = 'text-xs text-red-500 mt-1';
+            } else if (strength <= 50) {
+                strengthBar.className = 'h-full bg-orange-500 w-0 transition-all duration-300';
+                hint.textContent = 'ضعيفة';
+                hint.className = 'text-xs text-orange-500 mt-1';
+            } else if (strength <= 75) {
+                strengthBar.className = 'h-full bg-yellow-500 w-0 transition-all duration-300';
+                hint.textContent = 'متوسطة';
+                hint.className = 'text-xs text-yellow-600 mt-1';
+            } else {
+                strengthBar.className = 'h-full bg-green-500 w-0 transition-all duration-300';
+                hint.textContent = 'قوية';
+                hint.className = 'text-xs text-green-600 mt-1';
+            }
+        });
+
+        function goToStep2(e) {
+            e.preventDefault();
+            const form = e.target;
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
+
+            if (password !== confirmPassword) {
+                alert('كلمتا المرور غير متطابقتين!');
+                return;
+            }
+
+            if (password.length < 8) {
+                alert('يجب أن تكون كلمة المرور 8 أحرف على الأقل!');
+                return;
+            }
+
+            // Save form data
+            formData = {
+                fullname: form.fullname.value,
+                phone: form.phone.value,
+                email: form.email.value,
+                password: password
+            };
+
+            // Update UI
+            document.getElementById('step1Form').classList.add('hidden');
+            document.getElementById('step2Form').classList.remove('hidden');
+            document.getElementById('loginLink').classList.add('hidden');
+            document.getElementById('verifyPhone').textContent = '+249' + formData.phone;
+            
+            // Update indicators
+            document.getElementById('step1Indicator').classList.add('step-completed');
+            document.getElementById('step1Indicator').innerHTML = '<span class="material-symbols-outlined text-sm">check</span>';
+            document.getElementById('step2Indicator').classList.add('step-active');
+            document.getElementById('progressBar').style.width = '50%';
+            
+            currentStep = 2;
+            startTimer();
+            
+            // Focus first OTP input
+            setTimeout(() => document.querySelectorAll('.otp-input')[0].focus(), 100);
+        }
+
+        function moveToNext(input, index) {
+            if (input.value && index < 5) {
+                document.querySelectorAll('.otp-input')[index + 1].focus();
+            }
+        }
+
+        function startTimer() {
+            let timeLeft = 60;
+            const timerSpan = document.getElementById('timer');
+            const resendBtn = document.getElementById('resendBtn');
+            
+            resendBtn.disabled = true;
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                timerSpan.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    resendBtn.disabled = false;
+                    resendBtn.textContent = 'إعادة الإرسال';
+                }
+            }, 1000);
+        }
+
+        function resendCode() {
+            startTimer();
+            document.getElementById('resendBtn').textContent = 'إعادة الإرسال (60ث)';
+            // Simulate sending code
+            alert('تم إعادة إرسال رمز التحقق!');
+        }
+
+        function backToStep1() {
+            document.getElementById('step2Form').classList.add('hidden');
+            document.getElementById('step1Form').classList.remove('hidden');
+            document.getElementById('loginLink').classList.remove('hidden');
+            
+            document.getElementById('step1Indicator').classList.remove('step-completed');
+            document.getElementById('step1Indicator').textContent = '1';
+            document.getElementById('step2Indicator').classList.remove('step-active');
+            document.getElementById('progressBar').style.width = '0%';
+            
+            currentStep = 1;
+            clearInterval(timerInterval);
+        }
+
+        function verifyCode() {
+            const inputs = document.querySelectorAll('.otp-input');
+            let code = '';
+            inputs.forEach(input => code += input.value);
+            
+            if (code.length !== 6) {
+                alert('الرجاء إدخال الرمز كاملاً');
+                return;
+            }
+
+            // Simulate verification
+            document.getElementById('step2Form').classList.add('hidden');
+            document.getElementById('step3Form').classList.remove('hidden');
+            
+            document.getElementById('step2Indicator').classList.add('step-completed');
+            document.getElementById('step2Indicator').innerHTML = '<span class="material-symbols-outlined text-sm">check</span>';
+            document.getElementById('step3Indicator').classList.add('step-active');
+            document.getElementById('progressBar').style.width = '100%';
+            
+            // Save user data
+            const userData = {
+                isLoggedIn: true,
+                name: formData.fullname,
+                phone: '+249' + formData.phone,
+                email: formData.email,
+                avatar: null,
+                joinedDate: new Date().toISOString().split('T')[0]
+            };
+            localStorage.setItem('userData', JSON.stringify(userData));
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</body>
+</html>
